@@ -1,32 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, Platform, Slider, TextInput } from 'react-native';
 
-const ColorPicker = () => {
-    return(
-        <View style={styles.container}>
+const Cell = (props) => {
 
+    const [valueCell, setValueCell] = useState(props.value)
+
+    return(
+        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            <Text>{props.title}</Text>
+            <Slider onValueChange={ (value) => {
+                setValueCell(value);
+            }} value={ valueCell } step={1} minimumValue={0} maximumValue={255} style={{width: 200, marginLeft: 5, marginRight: 5}} />
+            <TextInput value={ `${valueCell}` } style={styles.textInput} />
+        </View>
+    )
+}
+
+const ColorPicker = () => {
+
+    const renderHeader = () => {
+        return(
             <View style={styles.header}>
                 <Text style={styles.headerText}>Color Picker</Text>
             </View>
+        )
+    }
+
+    return(
+        <View style={styles.container}>
+
+            { renderHeader }
 
             <View style={{flex: 1, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center'}}>
                 <View style={{ width: 300, height: 300, backgroundColor: 'white', flexDirection: 'column' }}>
                     <View style={{ flex: 1, backgroundColor: 'yellow' }}>
-                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text>R</Text>
-                            <Slider style={{width: 200, marginLeft: 5, marginRight: 5}} />
-                            <TextInput value="0" style={styles.textInput} />
-                        </View>
-                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text>G</Text>
-                            <Slider style={{width: 200, marginLeft: 5, marginRight: 5}} />
-                            <TextInput value="0" style={styles.textInput} />
-                        </View>
-                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text>B</Text>
-                            <Slider style={{width: 200, marginLeft: 5, marginRight: 5}} />
-                            <TextInput value="0" style={styles.textInput} />
-                        </View>
+
+                        <Cell title='R' value={100} />
+                        <Cell title='G' value={150} />
+                        <Cell title='B' value={200} />
+
                     </View>
                     <View style={{ flex: 1, backgroundColor: 'red' }}>
 
