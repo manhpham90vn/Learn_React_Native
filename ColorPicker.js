@@ -9,7 +9,8 @@ const Cell = (props) => {
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
             <Text>{props.title}</Text>
             <Slider onValueChange={ (value) => {
-                setValueCell(value);
+                setValueCell(value)
+                props.onChanged(value)
             }} value={ valueCell } step={1} minimumValue={0} maximumValue={255} style={{width: 200, marginLeft: 5, marginRight: 5}} />
             <TextInput value={ `${valueCell}` } style={styles.textInput} />
         </View>
@@ -17,6 +18,10 @@ const Cell = (props) => {
 }
 
 const ColorPicker = () => {
+
+    const [r, setR] = useState(0)
+    const [g, setG] = useState(0)
+    const [b, setB] = useState(0)
 
     const renderHeader = () => {
         return(
@@ -35,12 +40,18 @@ const ColorPicker = () => {
                 <View style={{ width: 300, height: 300, backgroundColor: 'white', flexDirection: 'column' }}>
                     <View style={{ flex: 1, backgroundColor: 'yellow' }}>
 
-                        <Cell title='R' value={100} />
-                        <Cell title='G' value={150} />
-                        <Cell title='B' value={200} />
+                        <Cell title='R' value={r} onChanged={ (value) => {
+                            setR(value)
+                        }} />
+                        <Cell title='G' value={b} onChanged={ (value) => {
+                            setG(value)
+                        }} />
+                        <Cell title='B' value={b} onChanged={ (value) => {
+                            setB(value)
+                        }} />
 
                     </View>
-                    <View style={{ flex: 1, backgroundColor: 'red' }}>
+                    <View style={{ flex: 1, backgroundColor: `rgb(${r}, ${g}, ${b})` }}>
 
                     </View>
                 </View>
