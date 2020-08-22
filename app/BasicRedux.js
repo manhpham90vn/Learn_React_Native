@@ -1,9 +1,9 @@
 import React from 'react'
 import {View, Text} from 'react-native'
-import { createStore } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 
 // State
-let appState = { number: 1, history: [1] }
+let appState = { number: 1, history: [1], error: '' }
 
 // Action
 const add = {
@@ -17,15 +17,18 @@ const sub = {
 }
 
 // Reducer
-const numberReducer = (state, action) => {
+const numberReducer = (state = appState, action) => {
     switch (action.type) {
         case 'ADD':
             // mutable state
             console.log('ADD')
             const newValueAdd = state.number + action.value
 
-            state.number = newValueAdd
-            history = [...state.history, newValueAdd]
+            state = {
+                ...state,
+                history: [...state.history, newValueAdd],
+                number: newValueAdd
+            }
             break
         case 'SUB':
             // immutable state
@@ -42,32 +45,79 @@ const numberReducer = (state, action) => {
     return state
 }
 
+const errorReducer = (state = appState, action) => {
+
+    switch (action.type) {
+        case 'LESS_THAN_ZERO':
+            state = {
+                ...state,
+                error: 'less than zero'
+            }
+            break
+    }
+
+    return state
+}
+
+// Middleware
+const logger = store => next => action => {
+    console.log('state', store.getState())
+    next(action)
+    console.log('state updated', store.getState())
+}
+
+const checkIsZero = store => next => action => {
+    console.log('state', store.getState())
+
+    const currentNumber = store.getState().numberReducer.number
+
+    if (currentNumber == 0) {
+        next( {type: 'LESS_THAN_ZERO'} )
+    } else {
+        next(action)
+    }
+
+    console.log('state updated', store.getState())
+}
+
 // Store
-const store = createStore(numberReducer, appState)
+const reducers = combineReducers({
+    numberReducer,
+    errorReducer
+})
+const store = createStore(reducers, applyMiddleware(checkIsZero))
 
 // Test
 
-store.subscribe(() => {
-    console.log('state updated', store.getState())
-})
+// store.subscribe(() => {
+//     console.log('state updated', store.getState())
+// })
 
 // dispatch
 store.dispatch(add)
-store.dispatch(add)
-store.dispatch(sub)
 store.dispatch(sub)
 
 // dispatch
 store.dispatch({
     type: 'ADD',
-    value: 10
+    value: 1
 })
 
 // dispatch
 const createAddAction = (number) => {
     return { type: 'ADD', value: number }
 }
-store.dispatch( createAddAction(10) )
+store.dispatch( createAddAction(1) )
+
+// store.dispatch({
+//     type: 'LESS_THAN_ZERO'
+// })
+
+store.dispatch(sub)
+store.dispatch(sub)
+store.dispatch(sub)
+store.dispatch(sub)
+store.dispatch(sub)
 
 const BasicRedux = () => {
     return(
