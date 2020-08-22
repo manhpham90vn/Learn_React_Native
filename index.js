@@ -3,7 +3,7 @@
  */
 
 import {AppRegistry} from 'react-native';
-import DefaultProps from './app/DefaultProps';
+import Flexbox from './app/Flexbox';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => DefaultProps);
+AppRegistry.registerComponent(appName, () => Flexbox);
