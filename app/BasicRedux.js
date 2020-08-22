@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text} from 'react-native'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 // State
 let appState = { number: 1, history: [1], error: '' }
@@ -85,7 +86,8 @@ const reducers = combineReducers({
     numberReducer,
     errorReducer
 })
-const store = createStore(reducers, applyMiddleware(checkIsZero))
+
+const store = createStore(reducers, applyMiddleware(thunk, logger))
 
 // Test
 
@@ -94,30 +96,38 @@ const store = createStore(reducers, applyMiddleware(checkIsZero))
 // })
 
 // dispatch
-store.dispatch(add)
-store.dispatch(sub)
+// store.dispatch(add)
+// store.dispatch(sub)
 
 // dispatch
-store.dispatch({
-    type: 'ADD',
-    value: 1
-})
+// store.dispatch({
+//     type: 'ADD',
+//     value: 1
+// })
 
 // dispatch
-const createAddAction = (number) => {
-    return { type: 'ADD', value: number }
-}
-store.dispatch( createAddAction(1) )
+// const createAddAction = (number) => {
+//     return { type: 'ADD', value: number }
+// }
+// store.dispatch( createAddAction(1) )
 
 // store.dispatch({
 //     type: 'LESS_THAN_ZERO'
 // })
 
-store.dispatch(sub)
-store.dispatch(sub)
-store.dispatch(sub)
-store.dispatch(sub)
-store.dispatch(sub)
+// store.dispatch(sub)
+// store.dispatch(sub)
+// store.dispatch(sub)
+// store.dispatch(sub)
+// store.dispatch(sub)
+
+const addAfter3s = () => {
+    return dispatch => {
+        setTimeout(() => store.dispatch(add), 3000)
+    }
+}
+
+store.dispatch(addAfter3s())
 
 const BasicRedux = () => {
     return(
