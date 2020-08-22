@@ -6,12 +6,12 @@ const Cell = (props) => {
     const [valueCell, setValueCell] = useState(props.value)
 
     return(
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.cell}>
             <Text>{props.title}</Text>
             <Slider onValueChange={ (value) => {
                 setValueCell(value)
                 props.onChanged(value)
-            }} value={ valueCell } step={1} minimumValue={0} maximumValue={255} style={{width: 200, marginLeft: 5, marginRight: 5}} />
+            }} value={ valueCell } step={1} minimumValue={0} maximumValue={255} style={styles.slider} />
             <TextInput value={ `${valueCell}` } style={styles.textInput} />
         </View>
     )
@@ -19,11 +19,11 @@ const Cell = (props) => {
 
 const ColorPicker = () => {
 
-    const [r, setR] = useState(0)
-    const [g, setG] = useState(0)
-    const [b, setB] = useState(0)
+    const [r, setR] = useState(100)
+    const [g, setG] = useState(100)
+    const [b, setB] = useState(100)
 
-    const renderHeader = () => {
+    const RenderHeader = () => {
         return(
             <View style={styles.header}>
                 <Text style={styles.headerText}>Color Picker</Text>
@@ -31,14 +31,15 @@ const ColorPicker = () => {
         )
     }
 
+
     return(
         <View style={styles.container}>
 
-            { renderHeader }
+            <RenderHeader />
 
-            <View style={{flex: 1, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center'}}>
-                <View style={{ width: 300, height: 300, backgroundColor: 'white', flexDirection: 'column' }}>
-                    <View style={{ flex: 1, backgroundColor: 'yellow' }}>
+            <View style={styles.pickerContainer}>
+                <View style={styles.pickerTopView}>
+                    <View style={styles.pickerTopViewContainer}>
 
                         <Cell title='R' value={r} onChanged={ (value) => {
                             setR(value)
@@ -103,6 +104,33 @@ const styles = StyleSheet.create({
             android: 5
         }),
         textAlign: 'center'
+    },
+    cell: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    slider: {
+        width: 200,
+        marginLeft: 5,
+        marginRight: 5
+    },
+    pickerContainer: {
+        flex: 1,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    pickerTopView: {
+        width: 300,
+        height: 300,
+        backgroundColor: 'white',
+        flexDirection: 'column'
+    },
+    pickerTopViewContainer: {
+        flex: 1,
+        backgroundColor: 'white'
     }
 })
 

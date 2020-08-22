@@ -3,7 +3,7 @@
  */
 
 import {AppRegistry} from 'react-native';
-import LoadImages from './LoadImages';
+import ColorPicker from './app/ColorPicker';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => LoadImages);
+AppRegistry.registerComponent(appName, () => ColorPicker);
