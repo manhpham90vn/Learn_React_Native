@@ -3,7 +3,7 @@
  */
 
 import {AppRegistry} from 'react-native';
-import Lifecycle from './app/Lifecycle';
+import LifecycleMain from './app/Lifecycle';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => Lifecycle);
+AppRegistry.registerComponent(appName, () => LifecycleMain);
