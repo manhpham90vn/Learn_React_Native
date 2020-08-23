@@ -7,14 +7,9 @@ import {
     View
 } from 'react-native';
 
-import { connect } from 'react-redux'
-
-import { finishTask, deleteTask } from './actions/TaskListActions';
-
-class TaskFlatList extends Component {
+export default class TaskFlatList extends Component {
 
     renderItem = ({item, index}) => {
-
         return (
             <View style={ styles.itemContainer }>
                 <View>
@@ -35,11 +30,10 @@ class TaskFlatList extends Component {
                     </TouchableOpacity>
                 </View>
             </View>
-        );
+        )
     }
 
     render() {
-
         return(
             <FlatList
                 data={this.props.listData.data}
@@ -47,23 +41,9 @@ class TaskFlatList extends Component {
                 keyExtractor={ (item, index) => index }
                 renderItem={ this.renderItem }
             />
-        );
+        )
     }
 }
-
-export default connect(
-    state => {
-        return {
-            listData: state.taskListReducer
-        }
-    },
-    dispatch => {
-        return {
-            onFinishItem: (index) => dispatch( finishTask(index) ),
-            onDeleteItem: (index) => dispatch( deleteTask(index) )
-        }
-    }
-    )(TaskFlatList)
 
 const styles = StyleSheet.create({
     itemContainer : {

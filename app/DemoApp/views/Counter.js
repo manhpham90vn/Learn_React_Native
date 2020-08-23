@@ -14,7 +14,6 @@ export default class Counter extends Component {
     }
 
     render() {
-
         return (
             <View style={ styles.counterView } >
                 <Button onPress={ () => {
@@ -37,4 +36,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     }
-});
+})

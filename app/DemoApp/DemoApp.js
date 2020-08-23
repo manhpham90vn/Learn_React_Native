@@ -8,13 +8,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 
-import AddView from './AddView';
-import Counter from './Counter';
-import TaskFlatList from './TaskFlatList';
-
+import TaskFlatList from './views/TaskFlatList';
 import taskListReducer from './reducers/TaskListReducer';
 import counterReducer from './reducers/CounterReducer';
 import CounterContainer from './containers/CounterContainer';
+import AddViewContainer from './containers/AddViewContainer';
+import TaskFlatListContainer from './containers/TaskFlatListContainer';
 
 // LOGGER MIDDLEWARE
 const logger = store => next => action => {
@@ -37,9 +36,9 @@ class DemoApp extends Component {
         return(
             <Provider store={ store }>
                 <View style={ styles.container }>
-                    <AddView />
+                    <AddViewContainer />
                     <CounterContainer />
-                    <TaskFlatList />
+                    <TaskFlatListContainer />
                 </View>
             </Provider>
         )

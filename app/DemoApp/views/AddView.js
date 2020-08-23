@@ -8,11 +8,7 @@ import {
     View
 } from 'react-native';
 
-import { connect } from 'react-redux'
-
-import addTask from './actions/AddViewActions';
-
-class AddView extends Component {
+export default class AddView extends Component {
 
     constructor(props) {
         super(props);
@@ -49,19 +45,6 @@ class AddView extends Component {
         );
     }
 }
-
-export default connect(
-    state => {
-        return {
-            listData: state.taskListReducer
-        }
-    },
-    dispatch => {
-        return {
-            onAddNewTask: (name) => dispatch( addTask(name) ),
-        }
-    }
-)(AddView)
 
 const styles = StyleSheet.create({
 
