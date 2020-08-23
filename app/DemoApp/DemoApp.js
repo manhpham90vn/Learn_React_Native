@@ -13,6 +13,7 @@ import Counter from './Counter';
 import TaskFlatList from './TaskFlatList';
 
 import taskListReducer from './reducers/TaskListReducer';
+import counterReducer from './reducers/CounterReducer';
 
 // LOGGER MIDDLEWARE
 const logger = store => next => action => {
@@ -21,22 +22,12 @@ const logger = store => next => action => {
     console.log('state updated', store.getState())
 }
 
-const counterReducer = (state = { value: 1 }, action) => {
-
-    switch (action.type) {
-        case 'INCREASE':
-            return { ...state, value: state.value + 1 }
-        case 'DECREASE':
-            return  { ...state, value: state.value - 1 }
-    }
-    return state
-}
-
 // Store
 const reducers = combineReducers({
     taskListReducer,
     counterReducer
 })
+
 const store = createStore(reducers, applyMiddleware(thunk, logger))
 
 class DemoApp extends Component {

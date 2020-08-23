@@ -8,6 +8,8 @@ import {
 
 import { connect } from 'react-redux'
 
+import { increase, decrease } from './actions/CounterActions'
+
 class Counter extends Component {
 
     constructor(props) {
@@ -20,27 +22,15 @@ class Counter extends Component {
         return (
             <View style={ styles.counterView } >
                 <Button onPress={ () => {
-                    this.props.onIncrease()
+                    this.props.onDecrease()
                 } } title="Sub" />
                 <Text>Counter: { this.props.value }</Text>
                 <Button onPress={ () => {
-                    this.props.onDecrease()
+                    this.props.onIncrease()
                 } } title="Add" />
 
             </View>
         );
-    }
-}
-
-const increase = () => {
-    return {
-        type: 'INCREASE',
-    }
-}
-
-const decrease = () => {
-    return {
-        type: 'DECREASE',
     }
 }
 
