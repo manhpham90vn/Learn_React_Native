@@ -6,7 +6,9 @@ import {
     View
 } from 'react-native';
 
-export default class Counter extends Component {
+import { connect } from 'react-redux'
+
+class Counter extends Component {
 
     constructor(props) {
         super(props);
@@ -17,14 +19,44 @@ export default class Counter extends Component {
 
         return (
             <View style={ styles.counterView } >
-                <Button onPress={ () => this.setState({ number: this.state.number - 1 }) } title="Sub" />
-                <Text>Counter: { this.state.number }</Text>
-                <Button onPress={ () => this.setState({ number: this.state.number + 1 }) } title="Add" />
+                <Button onPress={ () => {
+                    this.props.onIncrease()
+                } } title="Sub" />
+                <Text>Counter: { this.props.value }</Text>
+                <Button onPress={ () => {
+                    this.props.onDecrease()
+                } } title="Add" />
 
             </View>
         );
     }
 }
+
+const increase = () => {
+    return {
+        type: 'INCREASE',
+    }
+}
+
+const decrease = () => {
+    return {
+        type: 'DECREASE',
+    }
+}
+
+export default connect(
+    state => {
+        return {
+            value: state.counterReducer.value
+        }
+    },
+    dispatch => {
+        return  {
+            onIncrease: () => dispatch( increase() ),
+            onDecrease: () => dispatch( decrease() )
+        }
+    }
+)(Counter)
 
 Counter.defaultProps = {
     number : 1

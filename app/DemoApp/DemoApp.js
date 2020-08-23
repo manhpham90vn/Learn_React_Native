@@ -21,9 +21,21 @@ const logger = store => next => action => {
     console.log('state updated', store.getState())
 }
 
+const counterReducer = (state = { value: 1 }, action) => {
+
+    switch (action.type) {
+        case 'INCREASE':
+            return { ...state, value: state.value + 1 }
+        case 'DECREASE':
+            return  { ...state, value: state.value - 1 }
+    }
+    return state
+}
+
 // Store
 const reducers = combineReducers({
-    taskListReducer
+    taskListReducer,
+    counterReducer
 })
 const store = createStore(reducers, applyMiddleware(thunk, logger))
 
