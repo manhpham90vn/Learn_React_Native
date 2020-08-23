@@ -9,6 +9,8 @@ import {
 
 import { connect } from 'react-redux'
 
+import { finishTask, deleteTask } from './actions/TaskListActions';
+
 class TaskFlatList extends Component {
 
     renderItem = ({item, index}) => {
@@ -46,21 +48,6 @@ class TaskFlatList extends Component {
                 renderItem={ this.renderItem }
             />
         );
-    }
-}
-
-// Action
-const finishTask = (index) => {
-    return {
-        type: 'FINISH',
-        atIndex: index
-    }
-}
-
-const deleteTask = (index) => {
-    return {
-        type: 'DELETE',
-        atIndex: index
     }
 }
 

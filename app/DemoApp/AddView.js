@@ -10,6 +10,8 @@ import {
 
 import { connect } from 'react-redux'
 
+import addTask from './actions/AddViewActions';
+
 class AddView extends Component {
 
     constructor(props) {
@@ -45,14 +47,6 @@ class AddView extends Component {
 
             </View>
         );
-    }
-}
-
-// Action
-const addTask = (name) => {
-    return {
-        type: 'ADD',
-        taskName: name
     }
 }
 
