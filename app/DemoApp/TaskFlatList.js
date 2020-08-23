@@ -7,16 +7,18 @@ import {
     View
 } from 'react-native';
 
-export default class TaskFlatList extends Component {
+import { connect } from 'react-redux'
+
+class TaskFlatList extends Component {
 
     renderItem = ({item, index}) => {
-
-        const { onFinishedItem, onDeleteItem } = this.props;
 
         return (
             <View style={ styles.itemContainer }>
                 <View>
-                    <TouchableOpacity style={{ marginTop: -2 }} onPress={ () => onFinishedItem(index) }>
+                    <TouchableOpacity style={{ marginTop: -2 }} onPress={ () => {
+                        this.props.onFinishItem(index)
+                    } }>
                         <Text> { (item.isFinished) ? `✅` : `🕘` } </Text>
                     </TouchableOpacity>
                 </View>
@@ -24,7 +26,9 @@ export default class TaskFlatList extends Component {
                     <Text style={{ color: 'black'}}>{item.title}</Text>
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <TouchableOpacity style={{ marginTop: -2 }} onPress={ () => onDeleteItem(index) }>
+                    <TouchableOpacity style={{ marginTop: -2 }} onPress={ () => {
+                        this.props.onDeleteItem(index)
+                    } }>
                         <Text>{`❌`}</Text>
                     </TouchableOpacity>
                 </View>
@@ -33,9 +37,10 @@ export default class TaskFlatList extends Component {
     }
 
     render() {
+
         return(
             <FlatList
-                data={this.props.listData}
+                data={this.props.listData.data}
                 extraData={this.props}
                 keyExtractor={ (item, index) => index }
                 renderItem={ this.renderItem }
@@ -43,6 +48,35 @@ export default class TaskFlatList extends Component {
         );
     }
 }
+
+// Action
+const finishTask = (index) => {
+    return {
+        type: 'FINISH',
+        atIndex: index
+    }
+}
+
+const deleteTask = (index) => {
+    return {
+        type: 'DELETE',
+        atIndex: index
+    }
+}
+
+export default connect(
+    state => {
+        return {
+            listData: state.taskListReducer
+        }
+    },
+    dispatch => {
+        return {
+            onFinishItem: (index) => dispatch( finishTask(index) ),
+            onDeleteItem: (index) => dispatch( deleteTask(index) )
+        }
+    }
+    )(TaskFlatList)
 
 const styles = StyleSheet.create({
     itemContainer : {

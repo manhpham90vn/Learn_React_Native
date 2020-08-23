@@ -3,7 +3,7 @@
  */
 
 import {AppRegistry} from 'react-native';
-import TodoApp from './app/Todo/TodoApp';
+import DemoApp from './app/DemoApp/DemoApp';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => TodoApp);
+AppRegistry.registerComponent(appName, () => DemoApp);

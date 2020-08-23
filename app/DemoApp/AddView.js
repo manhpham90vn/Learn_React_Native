@@ -8,16 +8,13 @@ import {
     View
 } from 'react-native';
 
-export default class AddView extends Component {
+import { connect } from 'react-redux'
+
+class AddView extends Component {
 
     constructor(props) {
         super(props);
         this.state = { newTaskName: '' }
-    }
-
-    onAddNewTask = () => {
-        this.props.onAddNewTask(this.state.newTaskName);
-        this.setState({ newTaskName: '' })
     }
 
     render() {
@@ -30,14 +27,18 @@ export default class AddView extends Component {
                             returnKeyType="done"
                             underlineColorAndroid="transparent"
                             value={`${this.state.newTaskName}`}
-                            onSubmitEditing={ this.onAddNewTask }
+                            onSubmitEditing={ () => {
+                                this.props.onAddNewTask(this.state.newTaskName)
+                            }}
                             onChangeText={ text => this.setState({ newTaskName: text }) }
                             placeholder="Task name"
                             style={[{ flex: 1 }, styles.input ]}
                         />
                     </View>
 
-                    <TouchableOpacity style={ styles.button } onPress={ this.onAddNewTask }>
+                    <TouchableOpacity style={ styles.button } onPress={ () => {
+                        this.props.onAddNewTask(this.state.newTaskName)
+                    }}>
                         <Text style={{ color: 'white' }}>Add</Text>
                     </TouchableOpacity>
                 </View>
@@ -47,6 +48,26 @@ export default class AddView extends Component {
     }
 }
 
+// Action
+const addTask = (name) => {
+    return {
+        type: 'ADD',
+        taskName: name
+    }
+}
+
+export default connect(
+    state => {
+        return {
+            listData: state.taskListReducer
+        }
+    },
+    dispatch => {
+        return {
+            onAddNewTask: (name) => dispatch( addTask(name) ),
+        }
+    }
+)(AddView)
 
 const styles = StyleSheet.create({
 
