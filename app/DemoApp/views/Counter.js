@@ -10,7 +10,18 @@ export default class Counter extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { number : props.number }
+        this.state = {
+            number : props.number,
+            title: ''
+        }
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any) {
+        if (nextProps.json !== undefined) {
+            this.setState({
+                title: nextProps.json.title
+            })
+        }
     }
 
     render() {
@@ -20,10 +31,10 @@ export default class Counter extends Component {
                     this.props.onDecrease()
                 } } title="Sub" />
                 <Text>Counter: { this.props.value }</Text>
+                <Text>{ this.state.title }</Text>
                 <Button onPress={ () => {
                     this.props.onIncrease()
                 } } title="Add" />
-
             </View>
         );
     }

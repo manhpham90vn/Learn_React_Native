@@ -16,7 +16,8 @@ class CounterContainer extends Component {
 export default connect(
     state => {
         return {
-            value: state.counterReducer.value
+            value: state.counterReducer.value,
+            json: state.counterReducer.results
         }
     },
     dispatch => {

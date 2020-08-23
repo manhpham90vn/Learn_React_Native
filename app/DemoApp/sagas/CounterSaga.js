@@ -1,7 +1,14 @@
-import { takeEvery } from 'redux-saga/effects'
+import { takeLatest, put } from 'redux-saga/effects'
+import { Api } from '../apis/api';
 
 function* increment() {
     console.log('This is increment saga')
+    try {
+        const results = yield Api.getData()
+        yield put({ type: 'SUCCESS', results: results })
+    } catch (error) {
+        yield put({ type: 'ERROR', error: error })
+    }
 }
 
 function* deincrement() {
@@ -9,13 +16,12 @@ function* deincrement() {
 }
 
 // export saga
-
 export function* watchIncrement() {
-    yield takeEvery('INCREASE', increment)
+    yield takeLatest('INCREASE', increment)
 }
 
 export function* watchDeIncrement() {
-    yield takeEvery('DECREASE', deincrement)
+    yield takeLatest('DECREASE', deincrement)
 }
 
 export function* helloSaga() {
