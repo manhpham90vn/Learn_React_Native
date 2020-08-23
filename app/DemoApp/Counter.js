@@ -6,11 +6,7 @@ import {
     View
 } from 'react-native';
 
-import { connect } from 'react-redux'
-
-import { increase, decrease } from './actions/CounterActions'
-
-class Counter extends Component {
+export default class Counter extends Component {
 
     constructor(props) {
         super(props);
@@ -32,24 +28,6 @@ class Counter extends Component {
             </View>
         );
     }
-}
-
-export default connect(
-    state => {
-        return {
-            value: state.counterReducer.value
-        }
-    },
-    dispatch => {
-        return  {
-            onIncrease: () => dispatch( increase() ),
-            onDecrease: () => dispatch( decrease() )
-        }
-    }
-)(Counter)
-
-Counter.defaultProps = {
-    number : 1
 }
 
 const styles = StyleSheet.create({

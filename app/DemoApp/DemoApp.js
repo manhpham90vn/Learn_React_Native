@@ -14,6 +14,7 @@ import TaskFlatList from './TaskFlatList';
 
 import taskListReducer from './reducers/TaskListReducer';
 import counterReducer from './reducers/CounterReducer';
+import CounterContainer from './containers/CounterContainer';
 
 // LOGGER MIDDLEWARE
 const logger = store => next => action => {
@@ -37,7 +38,7 @@ class DemoApp extends Component {
             <Provider store={ store }>
                 <View style={ styles.container }>
                     <AddView />
-                    <Counter />
+                    <CounterContainer />
                     <TaskFlatList />
                 </View>
             </Provider>
