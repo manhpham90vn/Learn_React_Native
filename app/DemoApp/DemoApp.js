@@ -84,7 +84,7 @@ class DemoApp extends Component {
 
     onFinishedItem = (index) => {
         let newTaskList = this.state.data;
-        newTaskList[index].isFinished = true;
+        newTaskList[index].isFinished = !newTaskList[index].isFinished
         this.setState({ data: newTaskList });
     }
 
