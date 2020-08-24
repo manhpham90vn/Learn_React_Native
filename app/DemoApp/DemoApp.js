@@ -4,36 +4,11 @@ import {
     View
 } from 'react-native';
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-import { Provider } from 'react-redux'
-
-import taskListReducer from './reducers/TaskListReducer';
-import counterReducer from './reducers/CounterReducer';
 import CounterContainer from './containers/CounterContainer';
 import AddViewContainer from './containers/AddViewContainer';
 import TaskFlatListContainer from './containers/TaskFlatListContainer';
-
-import rootSagas from './sagas/rootSagas';
-
-// LOGGER MIDDLEWARE
-const logger = store => next => action => {
-    console.log('state', store.getState())
-    next(action)
-    console.log('state updated', store.getState())
-}
-
-// SAGA MIDDLEWARE
-const sagaMiddleware = createSagaMiddleware()
-
-// Store
-const reducers = combineReducers({
-    taskListReducer,
-    counterReducer
-})
-
-const store = createStore(reducers, applyMiddleware(sagaMiddleware, logger))
-sagaMiddleware.run(rootSagas)
+import store from './store';
+import { Provider } from 'react-redux';
 
 class DemoApp extends Component {
 

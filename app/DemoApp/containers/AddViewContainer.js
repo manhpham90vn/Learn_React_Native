@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import addTask from '../actions/AddViewActions';
+import Actions from '../actions/';
 import AddView from '../views/AddView';
 
 class AddViewContainer extends Component {
@@ -21,7 +21,7 @@ export default connect(
     },
     dispatch => {
         return {
-            onAddNewTask: (name) => dispatch( addTask(name) ),
+            onAddNewTask: (name) => dispatch( Actions.addTask(name) ),
         }
     }
 )(AddViewContainer)

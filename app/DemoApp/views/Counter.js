@@ -17,9 +17,9 @@ export default class Counter extends Component {
     }
 
     componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any) {
-        if (nextProps.json !== undefined) {
+        if (nextProps.result !== undefined) {
             this.setState({
-                title: nextProps.json.title
+                title: nextProps.result.title
             })
         }
     }

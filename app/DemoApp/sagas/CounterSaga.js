@@ -1,29 +1,29 @@
 import { takeLatest, put } from 'redux-saga/effects'
 import { Api } from '../apis/api';
+import actionsType from '../actions/ActionType'
+import Action from '../actions'
 
 function* increment() {
-    console.log('This is increment saga')
     try {
-        const results = yield Api.getData()
-        yield put({ type: 'SUCCESS', results: results })
+        const data = yield Api.getData()
+        yield put(Action.requestSuccess(data))
     } catch (error) {
-        yield put({ type: 'ERROR', error: error })
+        yield put(Action.requestError(error))
     }
 }
 
 function* deincrement() {
-    console.log('This is deincrement saga')
 }
 
 // export saga
 export function* watchIncrement() {
-    yield takeLatest('INCREASE', increment)
+    yield takeLatest(actionsType.REDUX_INCREASE, increment)
 }
 
 export function* watchDeIncrement() {
-    yield takeLatest('DECREASE', deincrement)
+    yield takeLatest(actionsType.REDUX_DECREASE, deincrement)
 }
 
 export function* helloSaga() {
-    console.log('Hello Saga')
+
 }

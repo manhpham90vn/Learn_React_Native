@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import { increase, decrease } from '../actions/CounterActions'
+import Actions from '../actions/'
 import Counter from '../views/Counter';
 
 class CounterContainer extends Component {
 
     render() {
         return (
-            <Counter number={ this.props.value } {...this.props} />
+            <Counter {...this.props} />
         )
     }
 }
@@ -17,13 +17,13 @@ export default connect(
     state => {
         return {
             value: state.counterReducer.value,
-            json: state.counterReducer.results
+            result: state.counterReducer.result
         }
     },
     dispatch => {
         return  {
-            onIncrease: () => dispatch( increase() ),
-            onDecrease: () => dispatch( decrease() )
+            onIncrease: () => dispatch( Actions.increase() ),
+            onDecrease: () => dispatch( Actions.decrease() )
         }
     }
 )(CounterContainer)

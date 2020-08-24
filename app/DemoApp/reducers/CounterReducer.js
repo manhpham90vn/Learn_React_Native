@@ -1,14 +1,20 @@
-const counterReducer = (state = { value: 1 }, action) => {
+import actionTypes from '../actions/ActionType'
+
+const initState = {
+    value: 1
+}
+
+const counterReducer = (state = initState, action) => {
 
     switch (action.type) {
-        case 'INCREASE':
+        case actionTypes.REDUX_INCREASE:
             return { ...state, value: state.value + 1 }
-        case 'DECREASE':
+        case actionTypes.REDUX_DECREASE:
             return  { ...state, value: state.value - 1 }
-        case 'SUCCESS':
-            return { ...state, results: action.results }
-        case 'ERROR':
-            return  { ...state, results: action.error}
+        case actionTypes.SAGA_REQUEST_SUCCESS:
+            return {...state, result: action.data}
+        case actionTypes.SAGA_REQUEST_ERROR:
+            return {...state, result: action.data}
     }
     return state
 }
