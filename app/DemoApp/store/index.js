@@ -8,9 +8,9 @@ const combinedReducers = combineReducers(reducers)
 
 // LOGGER MIDDLEWARE
 const logger = store => next => action => {
-    console.log('state', store.getState())
+    // console.log('state', store.getState())
     next(action)
-    console.log('state updated', store.getState())
+    // console.log('state updated', store.getState())
 }
 
 // SAGA MIDDLEWARE

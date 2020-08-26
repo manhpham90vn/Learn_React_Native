@@ -6,9 +6,37 @@ import Counter from '../views/Counter';
 
 class CounterContainer extends Component {
 
+
+
+    onIncrease = () => {
+
+        const onSuccess = () => {
+            console.log('onIncreaseCallBack success')
+        }
+
+        const onError = () => {
+            console.log('onIncreaseCallBack error')
+        }
+
+        this.props.dispatch(Actions.increase({ onSuccess, onError }))
+    }
+
+    onDecrease = () => {
+
+        const onSuccess = (data) => {
+            console.log('onDecreaseCallBack success', data)
+        }
+
+        const onError = (error) => {
+            console.log('onDecreaseCallBack error', error)
+        }
+
+        this.props.dispatch(Actions.decrease({ onSuccess, onError }))
+    }
+
     render() {
         return (
-            <Counter {...this.props} />
+            <Counter onIncrease={ this.onIncrease } onDecrease={ this.onDecrease } {...this.props} />
         )
     }
 }
@@ -18,12 +46,6 @@ export default connect(
         return {
             value: state.counterReducer.value,
             result: state.counterReducer.result
-        }
-    },
-    dispatch => {
-        return  {
-            onIncrease: () => dispatch( Actions.increase() ),
-            onDecrease: () => dispatch( Actions.decrease() )
         }
     }
 )(CounterContainer)

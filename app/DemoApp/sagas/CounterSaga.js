@@ -3,16 +3,31 @@ import { Api } from '../apis/api';
 import actionsType from '../actions/ActionType'
 import Action from '../actions'
 
-function* increment() {
+function* increment(action) {
+
+    const { onSuccess, onError } = action.data
+
     try {
         const data = yield Api.getData()
+        onSuccess()
         yield put(Action.requestSuccess(data))
     } catch (error) {
+        onError()
         yield put(Action.requestError(error))
     }
 }
 
-function* deincrement() {
+function* deincrement(action) {
+
+    const { onSuccess, onError } = action.data
+
+    try {
+        const data = yield Api.getData()
+        onSuccess(data)
+    } catch (error) {
+        onError(error)
+    }
+
 }
 
 // export saga
