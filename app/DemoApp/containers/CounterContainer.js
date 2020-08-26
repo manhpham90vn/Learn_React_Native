@@ -6,7 +6,14 @@ import Counter from '../views/Counter';
 
 class CounterContainer extends Component {
 
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            title: '',
+            description: ''
+        }
+    }
 
     onIncrease = () => {
 
@@ -25,6 +32,10 @@ class CounterContainer extends Component {
 
         const onSuccess = (data) => {
             console.log('onDecreaseCallBack success', data)
+            this.setState({
+                title: data.title,
+                description: data.description
+            })
         }
 
         const onError = (error) => {
@@ -36,7 +47,7 @@ class CounterContainer extends Component {
 
     render() {
         return (
-            <Counter onIncrease={ this.onIncrease } onDecrease={ this.onDecrease } {...this.props} />
+            <Counter onIncrease={ this.onIncrease } onDecrease={ this.onDecrease } {...this.state} />
         )
     }
 }

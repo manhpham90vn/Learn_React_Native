@@ -8,22 +8,6 @@ import {
 
 export default class Counter extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            number : props.number,
-            title: ''
-        }
-    }
-
-    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any) {
-        if (nextProps.result !== undefined) {
-            this.setState({
-                title: nextProps.result.title
-            })
-        }
-    }
-
     render() {
         return (
             <View style={ styles.counterView } >
@@ -31,7 +15,8 @@ export default class Counter extends Component {
                     this.props.onDecrease()
                 } } title="Sub" />
                 <Text>Counter: { this.props.value }</Text>
-                <Text>{ this.state.title }</Text>
+                <Text>{ this.props.title }</Text>
+                <Text>{ this.props.description }</Text>
                 <Button onPress={ () => {
                     this.props.onIncrease()
                 } } title="Add" />
