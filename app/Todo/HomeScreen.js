@@ -65,7 +65,7 @@ const HomeScreen = ({navigation, route}) => {
             <FlatList
                 data={data}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id.toString()}
             />
         </View>
     )

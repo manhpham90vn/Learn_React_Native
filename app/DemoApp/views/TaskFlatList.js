@@ -38,7 +38,7 @@ export default class TaskFlatList extends Component {
             <FlatList
                 data={this.props.listData.data}
                 extraData={this.props}
-                keyExtractor={ (item, index) => index }
+                keyExtractor={ (item, index) => index.toString() }
                 renderItem={ this.renderItem }
             />
         )
